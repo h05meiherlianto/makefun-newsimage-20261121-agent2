@@ -1,43 +1,39 @@
-# news-image-20261121 — DESIGN.md
+# Design — The World in One Image, 21 November 2026
 
-Bounty: "Sum up 21 November's world news in one image", $100,
-deadline **2026-11-23T00:00:00Z = Senin 23 Nov 2026 07:00 WIB**.
-Deliverable: public GitHub repo (owner h05meiherlianto, created after the
-competition opened 21 Nov 2026 07:00 WIB, MIT licence) with main.py
-(Python 3.13) at root writing /output/entry.png; the simplest allowed
-program copies the stored image. Image: PNG, max 1 MiB, max 1024x1024,
-no network, program run twice must write identical bytes.
+## Idea
+A newspaper front page, drawn entirely with PIL shapes and text: one image
+that a reader can scan in seconds and still walk away with the day's three
+big stories plus three briefs.
 
-## Stories (verified, supplied by parent — see task brief)
-1. LEAD — Russia launches a mass overnight attack on Ukraine: 400+
-   drones and 110 missiles, at least 8–9 killed in Kyiv, a bridge damaged.
-   Two Russian missiles and one drone fall in Poland; Polish PM Tusk calls
-   it a deliberate provocation.
-2. MARKETS — AI stock sell-off pushes the S&P 500 and Dow into correction;
-   US stocks down 3.7% on Friday (context: Anthropic IPO debuted Thursday
-   at a $2 trillion valuation).
-3. UK–EU — Britain and the EU sign the biggest post-Brexit deal in
-   Brussels; PM Andy Burnham + EU leaders; food exports, carbon markets,
-   youth mobility.
-4. Footer — Gen Z protests in 25 European countries; COP31 climate summit
-   in Antalya stalls over fossil fuels; daraxonrasib pancreatic-cancer
-   drug — tumours undetectable in 1 of 12 patients.
-   (Deliberately NOT leading with the ICJ Myanmar genocide ruling — that
-   was yesterday's image.)
+## Layout (1024 × 1024)
+- **Masthead (0–150):** navy band, serif title "THE WORLD IN ONE IMAGE",
+  gold rule, gold dateline "SATURDAY, 21 NOVEMBER 2026".
+- **Lead (170–545):** white card, red kicker "LEAD · WAR IN EUROPE",
+  two-line headline on Russia's overnight assault, a three-line body
+  (Kyiv deaths and bridge damage; missiles and a drone down in Poland;
+  PM Tusk's "deliberate provocation"), and two navy stat chips —
+  "400+ drones launched" and "110 missiles launched".
+- **Middle row (565–810):** two cards side by side.
+  - Left, green header "MARKETS": "AI sell-off deepens" — S&P and Dow
+    down 3.7% on Friday, days after Anthropic's $2 trillion IPO.
+  - Right, teal header "UK–EU": "Post-Brexit deal struck in Brussels" —
+    PM Andy Burnham seals a new UK–EU agreement.
+- **Footer (830–1000):** gold rule, then three briefs in columns —
+  PROTESTS (Gen Z protests in 25 European countries), CLIMATE (COP31
+  opens in Antalya), HEALTH (daraxonrasib, a new pancreatic-cancer pill) —
+  and a muted credit line at the bottom.
 
-## Layout (1024x1024, newsprint front page, PIL + DejaVu system fonts)
-- Masthead: navy band, "THE WORLD IN ONE IMAGE" + "SATURDAY • 21 NOVEMBER 2026".
-- Lead story across the full width with a drawn starburst glyph (no
-  copyrighted assets — all panels drawn from text/lines).
-- Two side-by-side panels: MARKETS (with a small drawn bar chart) and
-  UK–EU (with a small drawn circle of stars).
-- Footer strip with the three short items above, over two lines.
-- Text sized to stay legible at ~300px judging size; all copy wrapped
-  to fit its panel, no overflow.
+## Palette and type
+- Warm paper background, navy ink, gold rules, one red reserved for the
+  lead kicker and one accent colour per panel (green, teal) so each story
+  is findable at a glance.
+- DejaVu Serif Bold for the masthead (newspaper feel), DejaVu Sans for
+  everything else — both are system fonts, no downloads, no assets.
 
-## Build
-- `build_entry.py` draws entry.png deterministically (fixed layout/text,
-  no timestamps). Run twice; md5 must match.
-- `main.py` copies entry.png to /output/entry.png. Run twice; output
-  bytes must match.
-- Kit init, LICENSE MIT, README with the three live make.fun badges.
+## Rules the build follows
+- Pure PIL, deterministic: no timestamps, no randomness, no network.
+  Running `build_entry.py` twice produces byte-identical `entry.png`.
+- No copyrighted assets: every element is a rectangle, line, or text
+  drawn by the script.
+- `main.py` only copies the built `entry.png` to `/output/entry.png`
+  (or `$MAKEFUN_OUTPUT_DIR/entry.png`).
